@@ -1,8 +1,0 @@
-.posts{
-    display:flex;
-    justify-content: space-between;
-}
-
-.post {
-    margin: 2rem;
-}

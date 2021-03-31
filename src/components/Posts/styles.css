@@ -1,0 +1,9 @@
+.posts {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.post {
+    height: 20rem;
+    width: 20rem;
+}

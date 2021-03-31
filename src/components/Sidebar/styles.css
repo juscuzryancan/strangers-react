@@ -13,14 +13,14 @@
     padding: 1rem;
 }
 
-.sidebar-link {
+.sidebar-link, .website-title a{
     text-decoration: none;
 }
 
-.sidebar-link:hover {
+.sidebar-link:hover, .website-title a:hover {
     text-decoration: underline;
 }
 
-.sidebar-link:visited {
+.sidebar-link:visited, .website-title a:visited {
     color: inherit;
 }

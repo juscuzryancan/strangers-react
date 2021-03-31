@@ -11,17 +11,20 @@ const fetchPosts = async () => {
     return data;
 }
 
-const Post = ({ post: {
-    title,
-    isAuthor,
-    price,
-    description,
-    location,
-    willDeliver,
-    createdAt,
-    updatedAt,
-    author: {username}
-}}) => {
+const Post = ({ 
+    post: {
+        title,
+        isAuthor,
+        price,
+        description,
+        location,
+        willDeliver,
+        createdAt,
+        updatedAt,
+        author: { username }
+    },
+    token
+}) => {
 
     createdAt = new Date(createdAt).toLocaleDateString();
     updatedAt = new Date(updatedAt).toLocaleDateString();
@@ -47,14 +50,13 @@ const Post = ({ post: {
             {/* <footer>User: {username} {(!isAuthor && isLoggedIn()) ?  `<img src="message.svg" id='message-image'>`: ''} </footer> */}
             </CardContent>
             <CardActions>
-                <Button>Im a button</Button>
-
+                {token && <Button>Im a button</Button>}
             </CardActions>
         </Card>
     );
 }
 
-const Posts = (props) => {
+const Posts = ({token}) => {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -70,7 +72,7 @@ const Posts = (props) => {
         <div className="posts">
             {posts.map((post) => {
                 return (
-                    <Post key={post._id} post={post} />
+                    <Post token={token} key={post._id} post={post} />
                 );
             })}
         </div>

@@ -3,8 +3,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30rem;
-    width: 40rem;
+    height: 40rem;
+    width: 50rem;
 }
 
 .login-form {
@@ -23,5 +23,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
 
+.login-error {
+    color: red;
 }

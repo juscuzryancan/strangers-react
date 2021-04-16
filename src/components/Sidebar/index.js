@@ -1,12 +1,14 @@
 import './styles.css';
 import Button from '@material-ui/core/Button';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 const Sidebar = ({
     token,
     setToken,
-    user
+    user,
+    setPosts
 }) => {
+    const history = useHistory();
 
     const handleSignOut = () => {
         localStorage.removeItem('token');
@@ -16,13 +18,11 @@ const Sidebar = ({
     return (
         <nav className="sidebar">
             <h1 className='website-title'><Link to='/'>Strangers' Things</Link></h1>
-            {!token  && <Link className="sidebar-link" to='/login'>Login</Link>}
-            {!token && <Link className="sidebar-link" to='/register'>Register</Link>}
+            {!token  && <Button onClick={() => history.push('/login')}>Login</Button>}
+            {!token  && <Button onClick={() => history.push('/register')}>Register</Button>}
             {token && <h3>Welcome, {user.username}</h3>}
-            {token && <Button>Create A Post</Button>}
-            {token && <Button>All Posts</Button>}
-            {token && <Button>My Posts</Button>}
-            {token && <Button>Messages</Button>}
+            {token && <Button onClick={() => history.push('/createpost')}>Create A Post</Button>}
+            {token && <Button onClick={() => history.push('/messages')}>Messages</Button>}
             {token && <Button onClick={handleSignOut}>Sign Out</Button>}
         </nav>
     )

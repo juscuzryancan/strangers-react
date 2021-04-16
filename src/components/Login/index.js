@@ -6,7 +6,10 @@ import './styles.css';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 
-const Login = ({setToken}) => {
+const Login = ({
+    setToken,
+    setAlertMessage
+}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -34,6 +37,7 @@ const Login = ({setToken}) => {
             setToken(token);
             localStorage.setItem('token', token);
             history.push('/');
+            setAlertMessage('Thank You For Logging In')
         } catch ({response: {data: {error: {name, message}}}}) {
             setError(message);
             setPassword('');

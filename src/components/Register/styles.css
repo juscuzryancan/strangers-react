@@ -23,5 +23,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
 
+.register-error {
+    color: red;
 }

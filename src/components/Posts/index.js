@@ -1,18 +1,14 @@
-import {useState, useEffect} from 'react';
 import axios from 'axios';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import './styles.css';
 import Button from '@material-ui/core/Button'
-
-const fetchPosts = async () => {
-    const { data: {data} } = await axios.get('https://strangers-things.herokuapp.com/api/2006-CPU-RM-WEB-PT/posts');
-    return data;
-}
+import {default as SearchBar} from '../SearchBar'
 
 const Post = ({ 
     post: {
+        _id,
         title,
         isAuthor,
         price,
@@ -23,22 +19,34 @@ const Post = ({
         updatedAt,
         author: { username }
     },
-    token
+    token,
+    posts,
+    setPosts,
+    setAlertMessage
 }) => {
 
+    //derived state
     createdAt = new Date(createdAt).toLocaleDateString();
     updatedAt = new Date(updatedAt).toLocaleDateString();
 
-    return(
+    const handleDelete = async () => {
+        try {
+            await axios.delete(`https://strangers-things.herokuapp.com/api/2006-CPU-RM-WEB-PT/posts/${_id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            let filteredPosts = posts.filter((post) => post._id !== _id);
+            setPosts(filteredPosts);
+            setAlertMessage('Your Post Was Successfully Deleted');
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
+    return (
         <Card className="post">
             <CardContent>
-            {/* <h3> Title: ${title}${(isAuthor && isLoggedIn()) 
-            ? `<img src="more.svg" id='more-image'>
-            <div class='more-menu'>
-                <button id='edit'>Edit</button>
-                <button id='delete'>Delete</button>
-            </div>` : ''}</h3>  */}
             <h3>Title: {title}</h3>
             <h4> Price: {price} </h4>
             <div>Description: {description}</div>
@@ -47,34 +55,41 @@ const Post = ({
             <div>Created On: {createdAt}</div>
             <div>Last Updated On: {updatedAt}</div> 
             <div>User: {username}</div>
-            {/* <footer>User: {username} {(!isAuthor && isLoggedIn()) ?  `<img src="message.svg" id='message-image'>`: ''} </footer> */}
             </CardContent>
             <CardActions>
-                {token && <Button>Im a button</Button>}
+                {(token && !isAuthor) && <Button className="message-button">Message {username}</Button>}
+                {(token && isAuthor) && <Button>Edit Post</Button>}
+                {(token && isAuthor) && <Button onClick={handleDelete}>Delete Post</Button>}
             </CardActions>
         </Card>
     );
 }
 
-const Posts = ({token}) => {
-    const [posts, setPosts] = useState([]);
-
-    useEffect(() => {
-        fetchPosts().then(({posts}) => {
-            setPosts([...posts]);
-        })
-
-    }, []);
+const Posts = ({
+    token, 
+    posts,
+    setPosts,
+    setAlertMessage
+}) => {
 
 
     return (
-
-        <div className="posts">
-            {posts.map((post) => {
-                return (
-                    <Post token={token} key={post._id} post={post} />
-                );
-            })}
+        <div>
+            <SearchBar posts={posts} setPosts={setPosts} />
+            <div className="posts">
+                {posts.map((post) => {
+                    return (
+                        <Post 
+                            token={token} 
+                            key={post._id} 
+                            post={post} 
+                            posts={posts} 
+                            setPosts={setPosts} 
+                            setAlertMessage={setAlertMessage} 
+                            />
+                    );
+                })}
+            </div>
         </div>
     );
 }

@@ -4,11 +4,23 @@ import {default as Posts} from '../Posts';
 import {default as Sidebar} from '../Sidebar';
 import {default as Login} from '../Login'
 import {default as Register} from '../Register';
+import {default as PostForm} from '../PostForm';
+import AlertMessage from '../AlertMessage';
 import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
 import axios from 'axios';
+
+
+const fetchPosts = async (token) => {
+    const { data: {data} } = await axios.get('https://strangers-things.herokuapp.com/api/2006-CPU-RM-WEB-PT/posts', {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+    return data;
+}
 
 
 const App = () => {
@@ -20,10 +32,18 @@ const App = () => {
     }
   });
   const [user, setUser] = useState({});
+  const [posts, setPosts] = useState([]);
+  const [alertMessage, setAlertMessage] = useState('');
+
+  useEffect(() => {
+      fetchPosts(token).then(({posts}) => {
+          setPosts([...posts]);
+      })
+  }, [token]);
 
   useEffect(() => {
     if(token){
-     (async ()=> {
+     (async () => {
        try {
          const { data: {data} } = await axios.get('https://strangers-things.herokuapp.com/api/2006-CPU-RM-WEB-PT/users/me', {
            headers: {
@@ -32,7 +52,7 @@ const App = () => {
          });
          setUser(data);
        } catch (error) {
-        console.error();
+        console.error(error);
        }
        
      })();
@@ -47,16 +67,25 @@ const App = () => {
       <Route exact path='/'>
         <div className="App">
           <Sidebar user={user} token={token} setToken={setToken}/>
-          <Posts token={token} />
+          <Posts setAlertMessage={setAlertMessage} posts={posts} setPosts={setPosts} token={token} />
+          <AlertMessage setAlertMessage={setAlertMessage} alertMessage={alertMessage} />
         </div>
       </Route>
 
       <Route exact path='/login'>
-        <Login setToken={setToken}/>
+        <Login setToken={setToken} setAlertMessage={setAlertMessage}/>
       </Route>
 
       <Route exact path='/register'>
         <Register setToken={setToken}/>
+      </Route>
+
+      <Route exact path='/createpost'>
+        <PostForm setAlertMessage={setAlertMessage} posts={posts} setPosts={setPosts} token={token}/>
+      </Route>
+
+      <Route exact path='/messages'>
+    
       </Route>
 
     </Router>

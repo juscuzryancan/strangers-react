@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import './styles.css';
 import Button from '@material-ui/core/Button'
 import {default as SearchBar} from '../SearchBar'
+import {useState} from 'react'
 
 const Post = ({ 
     post: {
@@ -71,13 +72,23 @@ const Posts = ({
     setPosts,
     setAlertMessage
 }) => {
+    
+    const [searchValue, setSearchValue] = useState('');
+    const filteredPosts = posts.filter(({ title, author: { username }, description, location }) => {
+        return (
+            title.toLowerCase().includes(searchValue.toLowerCase()) ||
+            username.toLowerCase().includes(searchValue.toLowerCase()) ||
+            description.toLowerCase().includes(searchValue.toLowerCase()) ||
+            location.toLowerCase().includes(searchValue.toLowerCase())
+        );
+    });
 
 
     return (
         <div>
-            <SearchBar posts={posts} setPosts={setPosts} />
+            <SearchBar setSearchValue={setSearchValue} />
             <div className="posts">
-                {posts.map((post) => {
+                {filteredPosts.map((post) => {
                     return (
                         <Post 
                             token={token} 

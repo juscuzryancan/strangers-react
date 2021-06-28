@@ -5,7 +5,7 @@
     flex-direction: column;
     top:0;
     height: 100%;
-    width: 71rem;
+    width: max-content;
     align-items: center;
 }
 

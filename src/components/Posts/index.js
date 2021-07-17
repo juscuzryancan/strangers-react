@@ -5,7 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import './styles.css';
 import Button from '@material-ui/core/Button'
 import {default as SearchBar} from '../SearchBar'
-import {useState} from 'react'
+import {useState} from 'react';
 
 const Post = ({ 
     post: {

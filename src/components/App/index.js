@@ -5,6 +5,7 @@ import {default as Sidebar} from '../Sidebar';
 import {default as Login} from '../Login'
 import {default as Register} from '../Register';
 import {default as PostForm} from '../PostForm';
+import {default as EditForm} from '../EditForm';
 import AlertMessage from '../AlertMessage';
 import {
   BrowserRouter as Router,
@@ -82,6 +83,10 @@ const App = () => {
 
       <Route exact path='/createpost'>
         <PostForm setAlertMessage={setAlertMessage} posts={posts} setPosts={setPosts} token={token}/>
+      </Route>
+
+      <Route exact path='/editpost/:postid'>
+        <EditForm token={token}/>
       </Route>
 
       <Route exact path='/messages'>

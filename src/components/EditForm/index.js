@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useState } from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -10,10 +10,9 @@ const EditForm = ({
     setPosts,
     posts,
     setAlertMessage,
-    post: {
-        //destructure the post in here
-    }
 }) => {
+    const post = posts.find((post) => post.id === id);
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -21,10 +20,6 @@ const EditForm = ({
     const [willDeliver, setWillDeliver] = useState(false);
 
     const history = useHistory();
-
-    useEffect(() => {
-        //clear the post that comes in
-    },[])
 
     const handleSubmit = async (e) => {
         try {
@@ -48,7 +43,6 @@ const EditForm = ({
 
         } catch (error) {
             console.log(error.response);
-            console.log();
         }
     }
 

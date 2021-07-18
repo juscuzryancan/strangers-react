@@ -6,6 +6,7 @@ import './styles.css';
 import Button from '@material-ui/core/Button'
 import {default as SearchBar} from '../SearchBar'
 import {useState} from 'react';
+import {useHistory} from 'react-router-dom'
 
 const Post = ({ 
     post: {
@@ -25,6 +26,7 @@ const Post = ({
     setPosts,
     setAlertMessage
 }) => {
+    const history = useHistory();
 
     //derived state
     createdAt = new Date(createdAt).toLocaleDateString();
@@ -59,7 +61,7 @@ const Post = ({
             </CardContent>
             <CardActions>
                 {(token && !isAuthor) && <Button className="message-button">Message {username}</Button>}
-                {(token && isAuthor) && <Button>Edit Post</Button>}
+                {(token && isAuthor) && <Button onClick={() => {history.push(`/editpost/${_id}`)}}>Edit Post</Button>}
                 {(token && isAuthor) && <Button onClick={handleDelete}>Delete Post</Button>}
             </CardActions>
         </Card>

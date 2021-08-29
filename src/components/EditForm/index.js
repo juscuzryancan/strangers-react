@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useHistory, useParams} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import './styles.css';
@@ -11,9 +11,12 @@ const EditForm = ({
     posts,
     setAlertMessage,
 }) => {
-    const post = posts.find((post) => post.id === id);
+    const {postid: id} = useParams();
+    const post = posts.find(post => post._id === id);
+    console.log(post)
+    //const post = posts.find((post) => post.id === id);
 
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState(post.title);
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [location, setLocation] = useState('');
@@ -53,7 +56,7 @@ const EditForm = ({
                     <h2>Edit Your Post</h2>
                     <div className='edit-post-input-container'>
                         <label>Title</label>
-                        <input className='edit-post-input' onChange={(e) => { setTitle(e.target.value) }}></input>
+                        <input className='edit-post-input' value={title} onChange={(e) => { setTitle(e.target.value) }}></input>
                     </div>
                     <div className='edit-post-input-container'>
                         <label>Description</label>

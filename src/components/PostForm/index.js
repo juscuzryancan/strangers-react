@@ -68,7 +68,7 @@ const PostForm = ({
                     </div>
                     <div className='create-post-input-container'>
                         <label>Will you deliver this item?</label>
-                        <input className='create-post-input' type='checkbox' onChange={(e) => { setWillDeliver(e.target.value) }}></input>
+                        <input className='create-post-input' type='checkbox' onChange={(e) => { setWillDeliver(e.target.checked) }}></input>
                     </div>
                     <Button type='submit'>Submit</Button>
                     <Link to='/'>Return to Homepage</Link>

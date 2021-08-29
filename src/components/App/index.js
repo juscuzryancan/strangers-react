@@ -86,7 +86,7 @@ const App = () => {
       </Route>
 
       <Route exact path='/editpost/:postid'>
-        <EditForm token={token}/>
+        <EditForm token={token} posts={posts} token={token} setPosts={setPosts} setAlertMessage={setAlertMessage}/>
       </Route>
 
       <Route exact path='/messages'>

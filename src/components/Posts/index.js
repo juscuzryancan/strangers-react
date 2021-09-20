@@ -34,6 +34,26 @@ const Post = ({
     createdAt = new Date(createdAt).toLocaleDateString();
     updatedAt = new Date(updatedAt).toLocaleDateString();
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        try {
+            const messageObject = await axios.post(`https://strangers-things.herokuapp.com/api/2006-CPU-RM-WEB-PT/posts/${_id}/messages`, {
+                message: {
+                    content: message
+                }
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            // update the message array within the users state
+        } catch (e) {
+            console.error(e);
+        }
+
+    }
+
     const handleDelete = async () => {
         try {
             await axios.delete(`https://strangers-things.herokuapp.com/api/2006-CPU-RM-WEB-PT/posts/${_id}`, {
@@ -67,8 +87,9 @@ const Post = ({
                 {(token && isAuthor) && <Button onClick={handleDelete}>Delete Post</Button>}
             </CardActions>
             {isMessageClicked && 
-                <form className="message-form">
-                    <label for="message">Message: </label>
+                <form onSubmit={handleSubmit} 
+                className="message-form">
+                    <label>Message: </label>
                     <textarea onChange={(e) => {setMessage(e.target.value)}} value={message} name="message"></textarea>
                     <Button type="submit">Send Message</Button>
                 </form>}

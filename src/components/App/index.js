@@ -6,6 +6,7 @@ import {default as Login} from '../Login'
 import {default as Register} from '../Register';
 import {default as PostForm} from '../PostForm';
 import {default as EditForm} from '../EditForm';
+import {default as Messages} from '../Messages';
 import AlertMessage from '../AlertMessage';
 import {
   BrowserRouter as Router,
@@ -90,7 +91,7 @@ const App = () => {
       </Route>
 
       <Route exact path='/messages'>
-    
+        <Messages user={user} messages={user.messages}/> 
       </Route>
 
     </Router>

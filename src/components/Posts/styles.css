@@ -12,3 +12,13 @@
 .message-button > * {
     color: blue;
 }
+
+.message-form {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.message-form textarea {
+    width: 100%;
+}

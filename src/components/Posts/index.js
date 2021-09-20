@@ -26,6 +26,8 @@ const Post = ({
     setPosts,
     setAlertMessage
 }) => {
+    const [isMessageClicked, setIsMessageClicked] = useState(false);
+    const [message, setMessage] = useState('');
     const history = useHistory();
 
     //derived state
@@ -60,10 +62,16 @@ const Post = ({
             <div>User: {username}</div>
             </CardContent>
             <CardActions>
-                {(token && !isAuthor) && <Button className="message-button">Message {username}</Button>}
+                {(token && !isAuthor) && <Button onClick={() => setIsMessageClicked(!isMessageClicked)} className="message-button">{(!isMessageClicked) ? `Message ${username}` : `Hide Message Form`}</Button>}
                 {(token && isAuthor) && <Button onClick={() => {history.push(`/editpost/${_id}`)}}>Edit Post</Button>}
                 {(token && isAuthor) && <Button onClick={handleDelete}>Delete Post</Button>}
             </CardActions>
+            {isMessageClicked && 
+                <form className="message-form">
+                    <label for="message">Message: </label>
+                    <textarea onChange={(e) => {setMessage(e.target.value)}} value={message} name="message"></textarea>
+                    <Button type="submit">Send Message</Button>
+                </form>}
         </Card>
     );
 }

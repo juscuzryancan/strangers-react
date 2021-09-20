@@ -69,7 +69,7 @@ const App = () => {
       <Route exact path='/'>
         <div className="App">
           <Sidebar user={user} token={token} setToken={setToken}/>
-          <Posts setAlertMessage={setAlertMessage} posts={posts} setPosts={setPosts} token={token} />
+          <Posts setUser={setUser} user={user} setAlertMessage={setAlertMessage} posts={posts} setPosts={setPosts} token={token} />
           <AlertMessage setAlertMessage={setAlertMessage} alertMessage={alertMessage} />
         </div>
       </Route>

@@ -24,7 +24,9 @@ const Post = ({
     token,
     posts,
     setPosts,
-    setAlertMessage
+    setAlertMessage,
+    setUser,
+    user
 }) => {
     const [isMessageClicked, setIsMessageClicked] = useState(false);
     const [message, setMessage] = useState('');
@@ -38,7 +40,7 @@ const Post = ({
         e.preventDefault();
         
         try {
-            const messageObject = await axios.post(`https://strangers-things.herokuapp.com/api/2006-CPU-RM-WEB-PT/posts/${_id}/messages`, {
+            const {data: {data: messageObject}} = await axios.post(`https://strangers-things.herokuapp.com/api/2006-CPU-RM-WEB-PT/posts/${_id}/messages`, {
                 message: {
                     content: message
                 }
@@ -48,6 +50,9 @@ const Post = ({
                 }
             })
             // update the message array within the users state
+            messageObject.fromUser.username = user.username;
+            setUser({...user, messages: [...user.messages, messageObject]})
+            setAlertMessage('Your Message Was Successfully Sent');
         } catch (e) {
             console.error(e);
         }
@@ -101,7 +106,9 @@ const Posts = ({
     token, 
     posts,
     setPosts,
-    setAlertMessage
+    setAlertMessage,
+    user,
+    setUser
 }) => {
     
     const [searchValue, setSearchValue] = useState('');
@@ -122,6 +129,8 @@ const Posts = ({
                 {filteredPosts.map((post) => {
                     return (
                         <Post 
+                            setUser={setUser}
+                            user={user}
                             token={token} 
                             key={post._id} 
                             post={post} 

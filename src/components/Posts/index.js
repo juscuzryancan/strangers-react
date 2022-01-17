@@ -129,7 +129,7 @@ const Posts = ({
                 {filteredPosts.map((post) => {
                     return (
                         <Post 
-                            setUser={setUser}
+                            /*key*/setUser={/*value*/setUser}
                             user={user}
                             token={token} 
                             key={post._id} 

@@ -2,6 +2,8 @@ import './styles.css';
 import Button from '@material-ui/core/Button';
 import {Link, useHistory} from 'react-router-dom';
 
+// const props = {token, setToken, user, setPosts}
+
 const Sidebar = ({
     token,
     setToken,

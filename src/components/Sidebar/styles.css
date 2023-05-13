@@ -5,8 +5,13 @@
     flex-direction: column;
     top:0;
     height: 100%;
+    padding: 1rem;
     width: max-content;
     align-items: center;
+}
+
+.sidebar h3 {
+  padding: 1rem;
 }
 
 .website-title {

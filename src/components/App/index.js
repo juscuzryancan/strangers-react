@@ -1,12 +1,12 @@
 import {useState, useEffect} from 'react';
 import './styles.css';
-import {default as Posts} from '../Posts';
-import {default as Sidebar} from '../Sidebar';
-import {default as Login} from '../Login'
-import {default as Register} from '../Register';
-import {default as PostForm} from '../PostForm';
-import {default as EditForm} from '../EditForm';
-import {default as Messages} from '../Messages';
+import Posts from '../Posts';
+import Sidebar from '../Sidebar';
+import Login from '../Login'
+import Register from '../Register';
+import CreatePost from '../CreatePost';
+import EditPost from '../EditPost';
+import Messages from '../Messages';
 import AlertMessage from '../AlertMessage';
 import {
   BrowserRouter as Router,
@@ -83,11 +83,11 @@ const App = () => {
       </Route>
 
       <Route exact path='/createpost'>
-        <PostForm setAlertMessage={setAlertMessage} posts={posts} setPosts={setPosts} token={token}/>
+        <CreatePost setAlertMessage={setAlertMessage} posts={posts} setPosts={setPosts} token={token}/>
       </Route>
 
       <Route exact path='/editpost/:postid'>
-        <EditForm posts={posts} token={token} setPosts={setPosts} setAlertMessage={setAlertMessage}/>
+        <EditPost posts={posts} token={token} setPosts={setPosts} setAlertMessage={setAlertMessage}/>
       </Route>
 
       <Route exact path='/messages'>

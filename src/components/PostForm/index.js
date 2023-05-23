@@ -1,81 +1,82 @@
-import {useState} from 'react';
+import { useForm } from "react-hook-form";
 import {Link, useHistory} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import './styles.css';
-import axios from 'axios';
+import "./styles.css"
 
 const PostForm = ({
-    token,
-    setPosts,
-    posts,
-    setAlertMessage
+  post,
+  setPost,
+  onSubmit
 }) => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
-    const [location, setLocation] = useState('');
-    const [willDeliver, setWillDeliver] = useState(false);
-
-    const history = useHistory();
-
-    const handleSubmit = async (e) => {
-        try {
-            e.preventDefault(); 
-            const {data: {data: {post}}} = await axios.post('https://strangers-things.herokuapp.com/api/2006-CPU-RM-WEB-PT/posts',{
-                post: {
-                    title,
-                    description,
-                    price,
-                    location,
-                    willDeliver
-                }
-            },{
-            headers: {
-                Authorization: `Bearer ${token}`
-            }});
-            setPosts([...posts, post]);
-            history.push('/');
-            setAlertMessage('Your Post Was Successfully Posted');
+  const {handleSubmit, register, formState: { errors }} = useForm({
+    values: {...post}
+  });
+  const history = useHistory();
 
 
-        } catch (error) {
-            console.log(error.response);
-        }
-    }
+  return (
+    <form className="post-form" onSubmit={handleSubmit(onSubmit)}>
+      <div className="post-form-input-group">
+        <label htmlFor="title">Title *</label>
+        <input 
+          onChange={(e) => setPost({...post, title:e.target.value})}
+          {...register("title", {
+            name: "title",
+            required: "Title is required"
+          })}
+        />
+        {errors.title && <div className="error">{errors.title.message}</div>}
+      </div>
 
-    return (
-        <div className='create-post-page'>
-            <Card className='create-post-container'>
-                <form className='create-post-form' onSubmit={handleSubmit} >
-                    <h2>Create A New Post</h2>
-                    <div className='create-post-input-container'>
-                        <label>Title</label>
-                        <input className='create-post-input' onChange={(e) => { setTitle(e.target.value) }}></input>
-                    </div>
-                    <div className='create-post-input-container'>
-                        <label>Description</label>
-                        <input className='create-post-input' onChange={(e) => { setDescription(e.target.value) }}></input>
-                    </div>
-                    <div className='create-post-input-container'>
-                        <label>Price</label>
-                        <input className='create-post-input' onChange={(e) => { setPrice(e.target.value) }}></input>
-                    </div>
-                    <div className='create-post-input-container'>
-                        <label>Location</label>
-                        <input className='create-post-input' onChange={(e) => { setLocation(e.target.value) }}></input>
-                    </div>
-                    <div className='create-post-input-container'>
-                        <label>Will you deliver this item?</label>
-                        <input className='create-post-input' type='checkbox' onChange={(e) => { setWillDeliver(e.target.checked) }}></input>
-                    </div>
-                    <Button type='submit'>Submit</Button>
-                    <Link to='/'>Return to Homepage</Link>
-                </form>
-            </Card>
-        </div>
-    );
+      <div className="post-form-input-group">
+        <label htmlFor="description">Description *</label>
+        <input 
+          {...register("description", {
+            name:"description",
+            required: "Description is required"
+          })}
+        />
+        {errors.description && <div className="error">{errors.description.message}</div>}
+      </div>
 
+      <div className="post-form-input-group">
+        <label htmlFor="price">Price *</label>
+        <input 
+          {...register("price", {
+            name:"price",
+            required: "Price is required"
+          })}
+        />
+        {errors.price && <div className="error">{errors.price.message}</div>}
+      </div>
+
+      <div className="post-form-input-group">
+        <label htmlFor="location">Location</label>
+        <input 
+          {...register("location", {
+            name:"location"
+          })}
+        />
+      </div>
+
+      <div 
+        className="post-form-input-group"
+        style={{
+          display: "block"
+        }}
+      >
+        <label htmlFor="willDeliver">Will you deliver this item?</label>
+        <input 
+          type="checkbox"
+          {...register("willDeliver", {
+            name:"willDeliver"
+          })}
+        />
+      </div>
+      <Button type="submit">Submit</Button>
+      <Link to="/">Return to Homepage</Link>
+    </form>
+  );
 }
 
 export default PostForm;

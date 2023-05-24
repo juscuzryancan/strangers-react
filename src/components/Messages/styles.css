@@ -1,0 +1,9 @@
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.message {
+  padding: .5rem;
+}

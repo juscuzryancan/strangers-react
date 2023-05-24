@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import {Link, useHistory, useParams} from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import {useHistory, useParams} from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import './styles.css';
 import axios from 'axios';

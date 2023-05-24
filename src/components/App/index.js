@@ -16,12 +16,12 @@ import axios from 'axios';
 
 
 const fetchPosts = async (token) => {
-    const { data: {data} } = await axios.get('https://strangers-things.herokuapp.com/api/2006-CPU-RM-WEB-PT/posts', {
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    });
-    return data;
+  const { data: {data} } = await axios.get('https://strangers-things.herokuapp.com/api/2006-CPU-RM-WEB-PT/posts', {
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  });
+  return data;
 }
 
 
@@ -37,27 +37,29 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [alertMessage, setAlertMessage] = useState('');
 
+
+  const handleUser = async () => {
+    try {
+      const { data: {data} } = await axios.get('https://strangers-things.herokuapp.com/api/2006-CPU-RM-WEB-PT/users/me', {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+      setUser(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-      fetchPosts(token).then(({posts}) => {
-          setPosts([...posts]);
-      })
+    fetchPosts(token).then(({posts}) => {
+      setPosts([...posts]);
+    })
   }, [token]);
 
   useEffect(() => {
     if(token){
-     (async () => {
-       try {
-         const { data: {data} } = await axios.get('https://strangers-things.herokuapp.com/api/2006-CPU-RM-WEB-PT/users/me', {
-           headers: {
-             "Authorization": `Bearer ${token}`
-           }
-         });
-         setUser(data);
-       } catch (error) {
-        console.error(error);
-       }
-       
-     })();
+      handleUser();
     } else {
       setUser({})
     }
@@ -91,7 +93,7 @@ const App = () => {
       </Route>
 
       <Route exact path='/messages'>
-        <Messages user={user} messages={user.messages}/> 
+        <Messages handleUser={handleUser} user={user} messages={user.messages}/> 
       </Route>
 
     </Router>

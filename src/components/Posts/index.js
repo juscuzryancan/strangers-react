@@ -53,6 +53,9 @@ const Post = ({
       setAlertMessage('Your Message Was Successfully Sent');
     } catch (e) {
       console.error(e);
+    } finally {
+      setMessage("");
+      setIsMessageClicked(false);
     }
 
   }
@@ -118,7 +121,6 @@ const Posts = ({
         location.toLowerCase().includes(searchValue.toLowerCase())
     );
   });
-
 
   return (
     <div>

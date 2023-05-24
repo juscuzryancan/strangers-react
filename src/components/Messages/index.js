@@ -7,38 +7,35 @@ const Messages = ({
   user,
   handleUser
 }) => {
-  console.log(user);
 
   useEffect(() => {
     handleUser();
   }, [])
 
-  const {messages} = user.messages;
+  const {messages} = user;
  
   return (
-    <div className="messages">
-      <h2>Messages </h2>
-      <span><Link to='/'><Button>Return Home</Button></Link></span>
-      {messages ? messages.map((message) => {
-        console.log(message.fromUser);
-        if (message.fromUser === user._id) {
-          console.log("here")
-          return null;
-        }
-
-        return (
-          <Card key={message._id} className='message'>
-            <div className="message-username">
-              {(message.fromUser.username === user.username) ? user.username : `To: ${message.username}`}
-            </div>
-            <div className="message-content">
-              {message.content}
-            </div>
-          </Card>
-        );
-      })
-      : <div>you have no messages</div>}
-    </ div>
+    <div className="messages-page">
+      <div className="messages-nav">
+        <h2>Messages </h2>
+        <span><Link to='/'><Button>Return Home</Button></Link></span>
+      </div>
+      <div className="messages">
+        {messages ? messages.map((message) => {
+          return (
+            <Card key={message._id} className='message'>
+              <div className="message-username">
+                From: {message.fromUser.username}
+              </div>
+              <div className="message-content">
+                Message: {message.content}
+              </div>
+            </Card>
+          );
+        })
+        : <div>you have no messages</div>}
+      </div>
+    </div>
   );
 }
 

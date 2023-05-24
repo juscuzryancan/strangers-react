@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import {Link, useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import "./styles.css"
 
@@ -11,7 +11,6 @@ const PostForm = ({
   const {handleSubmit, register, formState: { errors }} = useForm({
     values: {...post}
   });
-  const history = useHistory();
 
 
   return (

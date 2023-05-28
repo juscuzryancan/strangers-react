@@ -6,7 +6,8 @@
   top:0;
   height: 100%;
   padding: 1rem;
-  width: max-content;
+  min-width: max-content;
+  max-width: max-content;
   align-items: center;
   text-align: center;
 }

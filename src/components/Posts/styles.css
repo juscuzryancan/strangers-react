@@ -9,6 +9,10 @@
     margin: 1rem;
 }
 
+.posts-container {
+  flex-grow: 1;
+}
+
 .message-button > * {
     color: blue;
 }

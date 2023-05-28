@@ -123,7 +123,7 @@ const Posts = ({
   });
 
   return (
-    <div>
+    <div className="posts-container">
       <SearchBar setSearchValue={setSearchValue} />
       <div className="posts">
         {filteredPosts.map((post) => {

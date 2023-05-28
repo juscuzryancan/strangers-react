@@ -13,19 +13,24 @@ const Messages = ({
   }, [])
 
   const {messages} = user;
+  console.log("messages", messages);
  
   return (
     <div className="messages-page">
       <div className="messages-nav">
-        <h2>Messages </h2>
-        <span><Link to='/'><Button>Return Home</Button></Link></span>
+        <h1>Messages</h1>
+        <Link to='/'><Button>Return Home</Button></Link>
       </div>
       <div className="messages">
         {messages ? messages.map((message) => {
           return (
             <Card key={message._id} className='message'>
+              <h3>{message.post.title}</h3>
               <div className="message-username">
                 From: {message.fromUser.username}
+              </div>
+              <div className="message-username">
+                To: {message.post.author.username}
               </div>
               <div className="message-content">
                 Message: {message.content}

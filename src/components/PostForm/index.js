@@ -64,7 +64,7 @@ const PostForm = ({
           display: "block"
         }}
       >
-        <label htmlFor="willDeliver">Will you deliver this item?</label>
+        <label htmlFor="willDeliver">Will you deliver this item? </label>
         <input 
           type="checkbox"
           {...register("willDeliver", {

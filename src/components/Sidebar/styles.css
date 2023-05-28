@@ -1,13 +1,14 @@
 .sidebar {
-    position: -webkit-sticky;
-    position: sticky;
-    display: flex;
-    flex-direction: column;
-    top:0;
-    height: 100%;
-    padding: 1rem;
-    width: max-content;
-    align-items: center;
+  position: -webkit-sticky;
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  top:0;
+  height: 100%;
+  padding: 1rem;
+  width: max-content;
+  align-items: center;
+  text-align: center;
 }
 
 .sidebar h3 {
@@ -15,17 +16,17 @@
 }
 
 .website-title {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .sidebar-link, .website-title a{
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .sidebar-link:hover, .website-title a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .sidebar-link:visited, .website-title a:visited {
-    color: inherit;
+  color: inherit;
 }
